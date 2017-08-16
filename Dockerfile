@@ -29,7 +29,7 @@ RUN apk add --no-cache --virtual .phpize-deps $PHPIZE_DEPS linux-headers \
 RUN mv /usr/local/etc/php/conf.d/docker-php-ext-redis.ini ../ \
 && echo 'always_populate_raw_post_data=-1' > /usr/local/etc/php/conf.d/custom.ini \
 && kill -USR2 1
-RUN docker-php-ext-install mcrypt pdo_mysql bcmath mysqli mysql
+RUN docker-php-ext-install mcrypt pdo_mysql bcmath mysqli
 #####################################
 # Composer:
 #####################################
