@@ -25,7 +25,7 @@ RUN apk add --no-cache --virtual .phpize-deps $PHPIZE_DEPS linux-headers \
 && pecl install zip-1.13.5 \
 && docker-php-ext-enable zip \
 && rm -rf /tmp/pear \	
-&& apk del .phpize-deps
+&& apk del .phpize-deps \
 && echo 'always_populate_raw_post_data=-1' > /usr/local/etc/php/conf.d/custom.ini \
 && kill -USR2 1
 RUN docker-php-ext-install mcrypt pdo_mysql bcmath mysqli mysql
