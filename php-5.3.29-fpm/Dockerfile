@@ -5,7 +5,8 @@
 #
 
 FROM alpine:3.4
-
+RUN echo "http://mirrors.aliyun.com/alpine/v3.4/main" > /etc/apk/repositories \
+&& echo "http://mirrors.aliyun.com/alpine/v3.4/community" >> /etc/apk/repositories
 # persistent / runtime deps
 ENV PHPIZE_DEPS \
 		autoconf \
@@ -59,35 +60,35 @@ ENV PHP_URL="https://secure.php.net/get/php-5.3.29.tar.xz/from/this/mirror" PHP_
 ENV PHP_SHA256="8438c2f14ab8f3d6cd2495aa37de7b559e33b610f9ab264f0c61b531bf0c262d" PHP_MD5=""
 
 RUN set -xe; \
-	\
-	apk add --no-cache --virtual .fetch-deps \
-		gnupg \
-	; \
-	\
+#	\
+#	apk add --no-cache --virtual .fetch-deps \
+#		gnupg \
+#	; \
+#	\
 	mkdir -p /usr/src; \
-	cd /usr/src; \
-	\
-	wget -O php.tar.xz "$PHP_URL"; \
-	\
-	if [ -n "$PHP_SHA256" ]; then \
-		echo "$PHP_SHA256 *php.tar.xz" | sha256sum -c -; \
-	fi; \
-	if [ -n "$PHP_MD5" ]; then \
-		echo "$PHP_MD5 *php.tar.xz" | md5sum -c -; \
-	fi; \
-	\
-	if [ -n "$PHP_ASC_URL" ]; then \
-		wget -O php.tar.xz.asc "$PHP_ASC_URL"; \
-		export GNUPGHOME="$(mktemp -d)"; \
-		for key in $GPG_KEYS; do \
-			gpg --keyserver subkeys.pgp.net --recv-keys "$key"; \
-		done; \
-		gpg --batch --verify php.tar.xz.asc php.tar.xz; \
-		rm -rf "$GNUPGHOME"; \
-	fi; \
-	\
-	apk del .fetch-deps
-
+	cd /usr/src;
+#	\
+#	wget -O php.tar.xz "$PHP_URL"; \
+#	\
+#	if [ -n "$PHP_SHA256" ]; then \
+#		echo "$PHP_SHA256 *php.tar.xz" | sha256sum -c -; \
+#	fi; \
+#	if [ -n "$PHP_MD5" ]; then \
+#		echo "$PHP_MD5 *php.tar.xz" | md5sum -c -; \
+#	fi; \
+#	\
+#	if [ -n "$PHP_ASC_URL" ]; then \
+#		wget -O php.tar.xz.asc "$PHP_ASC_URL"; \
+#		export GNUPGHOME="$(mktemp -d)"; \
+#		for key in $GPG_KEYS; do \
+#			gpg --keyserver subkeys.pgp.net --recv-keys "$key"; \
+#		done; \
+#		gpg --batch --verify php.tar.xz.asc php.tar.xz; \
+#		rm -rf "$GNUPGHOME"; \
+#	fi; \
+#	\
+#	apk del .fetch-deps
+COPY php.tar.xz /usr/src/
 COPY docker-php-source /usr/local/bin/
 
 RUN set -xe \
