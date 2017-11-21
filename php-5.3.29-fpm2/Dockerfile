@@ -66,7 +66,7 @@ RUN set -xe; \
 	apk del .fetch-deps
 
 COPY docker-php-source /usr/local/bin/
-
+RUN chmod +x /usr/local/bin/docker-php-*
 RUN set -xe \
 	&& apk add --no-cache --virtual .build-deps \
 		$PHPIZE_DEPS \
@@ -118,7 +118,7 @@ RUN set -xe \
 	&& apk del .build-deps
 
 COPY docker-php-ext-* docker-php-entrypoint /usr/local/bin/
-
+RUN chmod +x /usr/local/bin/docker-php-*
 ENTRYPOINT ["docker-php-entrypoint"]
 WORKDIR /var/www/html
 
