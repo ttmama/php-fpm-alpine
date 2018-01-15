@@ -19,7 +19,7 @@ RUN docker-php-ext-configure gd \
 USER root
 RUN apk update \
 && apk add libmcrypt libmcrypt-dev
-RUN apk add --no-cache --virtual .phpize-deps $PHPIZE_DEPS linux-headers \
+RUN apk add --no-cache --virtual .phpize-deps $PHPIZE_DEPS linux-headers openssl-dev \
 && pecl install -o -f redis \
 && docker-php-ext-enable redis \
 && pecl install zip-1.13.5 \
