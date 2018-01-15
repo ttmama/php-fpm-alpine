@@ -24,9 +24,11 @@ RUN apk add --no-cache --virtual .phpize-deps $PHPIZE_DEPS linux-headers \
 && docker-php-ext-enable redis \
 && pecl install zip-1.13.5 \
 && docker-php-ext-enable zip \
+&& pecl install mongodb \
+&& docker-php-ext-enable mongodb \
 && rm -rf /tmp/pear \	
 && apk del .phpize-deps
-RUN mv /usr/local/etc/php/conf.d/docker-php-ext-redis.ini ../ \
+#RUN mv /usr/local/etc/php/conf.d/docker-php-ext-redis.ini ../ \
 && echo 'always_populate_raw_post_data=-1' > /usr/local/etc/php/conf.d/custom.ini \
 && kill -USR2 1
 RUN docker-php-ext-install mcrypt pdo_mysql bcmath mysqli
