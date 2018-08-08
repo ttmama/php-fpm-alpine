@@ -37,3 +37,5 @@ RUN docker-php-ext-install mcrypt pdo_mysql bcmath mysqli mysql
 RUN curl -s http://getcomposer.org/installer | php && \
     mv composer.phar /usr/local/bin/composer && \
 	composer config -g repo.packagist composer https://packagist.phpcomposer.com
+RUN apk add --no-cache --repository http://dl-3.alpinelinux.org/alpine/edge/testing gnu-libiconv
+ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so php
