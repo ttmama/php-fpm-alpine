@@ -39,3 +39,4 @@ RUN curl -s http://getcomposer.org/installer | php && \
 	composer config -g repo.packagist composer https://packagist.phpcomposer.com
 RUN apk add --no-cache --repository http://dl-3.alpinelinux.org/alpine/edge/testing gnu-libiconv
 ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so php
+RUN docker-php-ext-install soap
