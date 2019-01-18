@@ -42,3 +42,9 @@ ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so php
 RUN apk update \
 && apk add libxml2 libxml2-dev 
 RUN docker-php-ext-install soap
+RUN echo 'max_execution_time = 30000' >> /usr/local/etc/php/conf.d/custom.ini \
+&& echo 'memory_limit = 512M' >> /usr/local/etc/php/conf.d/custom.ini \
+&& echo 'post_max_size = 512M' >> /usr/local/etc/php/conf.d/custom.ini \
+&& echo 'upload_max_filesize = 512M' >> /usr/local/etc/php/conf.d/custom.ini \
+&& echo 'max_input_vars = 100000' >> /usr/local/etc/php/conf.d/custom.ini \
+&& kill -USR2 1
